@@ -1,7 +1,7 @@
 # long_url
 
 ## Overview
-This code is designed to unshorten shorten URLs, follow recursive redirects and output the end destination to the console coupled with the Bluecoat Site Review categorisation of the final URL in the chain. This can be useful if you have several short URLs to examine and need to quickly determine the destination and whether it's perceived by Bluecoat to be malicious.
+This code is designed to unshorten short URLs, follow recursive redirects and output the end destination to the console coupled with the Bluecoat Site Review categorisation of the final URL in the chain. This can be useful if you have several short URLs to examine and need to quickly determine the destination and whether it's perceived by Bluecoat to be malicious.
 
 ## Install
 There are a couple of requirements for the script to run correctly, as detailed in requirements.txt. Installation can be carried out via executing the following:
