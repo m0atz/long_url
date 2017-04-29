@@ -16,6 +16,8 @@ After installing the requirements, simply invoke via the command line, passing i
 ## Example
 Some sample URLs are provided in the urls.txt all leading (shamelessly) to my website. They also follow recursive redirects, for example the bit.ly link redirects to goo.gl which redirects to colin.guru. 
 
+![example](example.png "Example")
+
 ## Licence
 Released under MIT Licence. Enjoy.
 
