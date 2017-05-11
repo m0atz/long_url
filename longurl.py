@@ -4,6 +4,7 @@ import sys
 import fileinput
 import requests
 import json
+import getopt
 from bs4 import BeautifulSoup
 
 # perform a lookup of the site against Bluecoat and return the current category
@@ -41,28 +42,47 @@ def unshorten_url(url):
     else:
         return url 
 
-# iterate the input file, strip lines, follow the redirects and lookup in Bluecoat.
-# tries to handle errors gracefully :)
+# # 
+# main:
+# parse args and ensure usage.
+# unshorten the URL using the 'request' library and follow redirects.
+# if -b is selected them perform a bluecoat lookup on the final URL in the hop and display.
+# else, just print the final result.
+# #
 def main(argv):
     inputfile = ''
-    # ensure correct usage
-    if len(sys.argv) < 2:
-        print "Usage : " + sys.argv[0] + " <inputfile>"
-        sys.exit(1)
-    else:
-        inputfile = sys.argv[1]
+    bluecoat  = False
+    
+    # parse args and ensure correct usage
+    try:
+      opts, args = getopt.getopt(argv,"hi:b",["ifile=","bluecoat"])
+    except getopt.GetoptError:
+        print "Usage : " + sys.argv[0] + " -i inputfile [--bluecoat]"
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print "Usage : " + sys.argv[0] + " -i inputfile [--bluecoat]"
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-b", "--bluecoat"):
+            bluecoat = True
 
     # iterate each line in the input file
     for line in fileinput.input([inputfile]):
         line = line.rstrip('\n')
-        # use try, except pass to skip over any errors
         try:
+            # unshorten the url
             url = unshorten_url(line)
-            s = SiteReview()
-            response = s.sitereview(url)
-            # print response
-            cat = BeautifulSoup(response["categorization"], "lxml").get_text()
-            print line, "-->", url, "["+cat+"]"
+            # determine whether to display bluecoat cat or not
+            if (not bluecoat):
+                print line, "-->", url
+            elif (bluecoat):
+                s = SiteReview()
+                response = s.sitereview(url)
+                cat = BeautifulSoup(response["categorization"], "lxml").get_text()
+                print line, "-->", url, "["+cat+"]"
+        # handle errors, semi-gracefully :)
         except:
             print "Skipping over " + line
             pass
