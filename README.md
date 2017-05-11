@@ -11,7 +11,10 @@ There are a couple of requirements for the script to run correctly, as detailed 
 ## Run
 After installing the requirements, simply invoke via the command line, passing in a file containing your short urls as an argument, e.g.
 
-    $ python longurl.py urls.txt
+    $ python longurl.py -i urls.txt [-b]
+        options:
+        -i / --infile : specifies the input file containing the urls to examine.
+        -b / --bluecoat : specified whether you wish to perform a bluecoat site review on the destination url.
     
 ## Example
 Some sample URLs are provided in the urls.txt all leading (shamelessly) to my website. They also follow recursive redirects, for example the bit.ly link redirects to goo.gl which redirects to colin.guru. 
