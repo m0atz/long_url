@@ -25,4 +25,4 @@ Some sample URLs are provided in the urls.txt all leading (shamelessly) to my we
 Released under MIT Licence. Enjoy.
 
 ## Feedback
-I welcome feedback of any kind cdh.cert@gmail.com
+Find me on Twitter @cybercdh
